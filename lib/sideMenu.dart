@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:easy_sidemenu/src/global/global.dart';
 
 SideMenuStyle menuStyle = SideMenuStyle(
-  openSideMenuWidth: 200,
-  compactSideMenuWidth: 40,
+  openSideMenuWidth: 250,
+  compactSideMenuWidth: 66,
   iconSize: 15,
   itemHeight: 35,
   itemInnerSpacing: 4.0,
@@ -27,8 +28,10 @@ class LeftNavBar extends StatefulWidget {
 
 class _LeftNavBarState extends State<LeftNavBar> {
   SideMenuController sideMenu = SideMenuController();
+
   @override
   void initState() {
+    Global.displayModeState.value = SideMenuDisplayMode.compact;
     sideMenu.addListener((index) {
       widget.pageController.jumpToPage(index);
     });
@@ -71,5 +74,11 @@ class _LeftNavBarState extends State<LeftNavBar> {
         )
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    sideMenu.dispose();
+    super.dispose();
   }
 }

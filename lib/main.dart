@@ -1,18 +1,53 @@
 import 'package:flutter/material.dart';
-import 'sideMenu.dart';
-import 'work.dart';
+import 'package:pmkit/Model/project.dart';
+import 'package:pmkit/home.dart';
+import 'package:pmkit/projectDetail.dart';
+import 'package:provider/provider.dart';
+
+import 'Model/work.dart';
 
 void main() {
   runApp(App());
 }
 
 class App extends StatelessWidget {
-  List<Work> workList = [
+  ProjectModel projectModel = ProjectModel(projectList: []);
+  WorkModel workController = WorkModel(workList: [
     Work(
         name: '테스트 업무',
         createdAt: DateTime.now(),
         priority: WorkPriority.high,
         state: WorkState.request,
+        number: 0),
+    Work(
+        name: '테스트 업무',
+        createdAt: DateTime.now(),
+        priority: WorkPriority.high,
+        state: WorkState.request,
+        number: 0),
+    Work(
+        name: '테스트 업무',
+        createdAt: DateTime.now(),
+        priority: WorkPriority.high,
+        state: WorkState.request,
+        number: 0),
+    Work(
+        name: '테스트 업무',
+        createdAt: DateTime.now(),
+        priority: WorkPriority.high,
+        state: WorkState.ing,
+        number: 0),
+    Work(
+        name: '테스트 업무',
+        createdAt: DateTime.now(),
+        priority: WorkPriority.high,
+        state: WorkState.feedback,
+        number: 0),
+    Work(
+        name: '테스트 업무',
+        createdAt: DateTime.now(),
+        priority: WorkPriority.high,
+        state: WorkState.pending,
         number: 0),
     Work(
         name: '테스트 업무',
@@ -56,78 +91,17 @@ class App extends StatelessWidget {
         priority: WorkPriority.high,
         state: WorkState.request,
         number: 0),
-    Work(
-        name: '테스트 업무',
-        createdAt: DateTime.now(),
-        priority: WorkPriority.high,
-        state: WorkState.request,
-        number: 0),
-    Work(
-        name: '테스트 업무',
-        createdAt: DateTime.now(),
-        priority: WorkPriority.high,
-        state: WorkState.request,
-        number: 0),
-    Work(
-        name: '테스트 업무',
-        createdAt: DateTime.now(),
-        priority: WorkPriority.high,
-        state: WorkState.request,
-        number: 0),
-    Work(
-        name: '테스트 업무',
-        createdAt: DateTime.now(),
-        priority: WorkPriority.high,
-        state: WorkState.request,
-        number: 0),
-    Work(
-        name: '테스트 업무',
-        createdAt: DateTime.now(),
-        priority: WorkPriority.high,
-        state: WorkState.request,
-        number: 0),
-  ];
-
+  ]);
   @override
   Widget build(BuildContext context) {
-    PageController pageController = PageController();
-
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: Text('PM Kit'),
-          backgroundColor: Color.fromARGB(255, 95, 32, 243),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: this.workController,
         ),
-        body: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LeftNavBar(
-              pageController: pageController,
-            ),
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                children: [
-                  Container(
-                    color: Colors.white,
-                    child: const Center(
-                      child: Text('대시보드'),
-                    ),
-                  ),
-                  WorkPage(workList: this.workList),
-                  Container(
-                    color: Colors.white,
-                    child: const Center(
-                      child: Text('세팅'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+        ChangeNotifierProvider.value(value: this.projectModel),
+      ],
+      child: MaterialApp(home: Home()),
     );
   }
 }
