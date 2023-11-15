@@ -5,10 +5,11 @@ import 'package:easy_sidemenu/src/global/global.dart';
 SideMenuStyle menuStyle = SideMenuStyle(
   openSideMenuWidth: 250,
   compactSideMenuWidth: 66,
-  iconSize: 15,
-  itemHeight: 35,
+  iconSize: 16,
+  itemHeight: 40,
   itemInnerSpacing: 4.0,
-  itemOuterPadding: const EdgeInsets.symmetric(horizontal: 3.0),
+  hoverColor: Color.fromARGB(128, 50, 45, 68),
+  itemOuterPadding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 5.0),
   backgroundColor: Color.fromARGB(255, 44, 42, 52),
   displayMode: SideMenuDisplayMode.auto,
   unselectedIconColor: Colors.white70,
@@ -43,7 +44,6 @@ class _LeftNavBarState extends State<LeftNavBar> {
     return SideMenu(
       style: menuStyle,
       controller: this.sideMenu,
-      title: Text('메뉴'),
       footer: Text('푸터'),
       items: [
         SideMenuItem(
@@ -67,11 +67,11 @@ class _LeftNavBarState extends State<LeftNavBar> {
           },
           icon: Icon(Icons.settings),
         ),
-        SideMenuItem(
-          title: '종료',
-          onTap: (index, _) {},
-          icon: Icon(Icons.exit_to_app),
-        )
+        // SideMenuItem(
+        //   title: '종료',
+        //   onTap: (index, _) {},
+        //   icon: Icon(Icons.exit_to_app),
+        // )
       ],
     );
   }
