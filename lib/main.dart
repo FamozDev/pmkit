@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:pmkit/Model/project.dart';
 import 'package:pmkit/home.dart';
 import 'package:pmkit/projectDetail.dart';
@@ -66,6 +67,8 @@ class App extends StatelessWidget {
         createdAt: DateTime.now(),
         priority: WorkPriority.high,
         state: WorkState.request,
+        begin: DateTime.now(),
+        end: DateTime.now(),
         number: 0),
     Work(
         name: '테스트 업무',
@@ -101,7 +104,11 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(value: this.projectModel),
       ],
-      child: MaterialApp(home: Home()),
+      child: MaterialApp(
+        home: Home(),
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        supportedLocales: const [Locale('en'), Locale('ko')],
+      ),
     );
   }
 }

@@ -63,6 +63,22 @@ class WorkModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateBeginDate(Work work, DateTime begin) {
+    var index = workList.indexOf(work);
+    if (index != -1) {
+      workList[index].begin = begin;
+      notifyListeners();
+    }
+  }
+
+  void updateEndDate(Work work, DateTime end) {
+    var index = workList.indexOf(work);
+    if (index != -1) {
+      workList[index].end = end;
+      notifyListeners();
+    }
+  }
 }
 
 ColorRectRenderInfo getStateRenderInfo(WorkState state) {
@@ -99,7 +115,7 @@ ColorRectRenderInfo getPriorityRenderInfo(WorkPriority priority) {
   Color color;
   switch (priority) {
     case WorkPriority.none:
-      text = '';
+      text = '없음';
       color = Colors.grey;
       break;
     case WorkPriority.low:

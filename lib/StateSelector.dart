@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pmkit/Component/wk_ColorRect.dart';
 import 'package:pmkit/Component/wk_DropDown.dart';
-import 'package:pmkit/Model/work.dart';
-import 'package:provider/provider.dart';
 
-class DropdownCellOption<T> {
+class StateOption<T> {
   T data;
   ColorRectRenderInfo renderInfo;
 
-  DropdownCellOption({required this.data, required this.renderInfo});
+  StateOption({required this.data, required this.renderInfo});
 }
 
-class DropdownCell<T> extends StatefulWidget {
+class StateSelector<T> extends StatefulWidget {
   // Work work;
-  final List<DropdownCellOption<T>> items;
+  final List<StateOption<T>> items;
   void Function(T)? onSelectChange;
   final ColorRectRenderInfo renderInfo;
-  DropdownCell({
+  StateSelector({
     super.key,
     required this.renderInfo,
     required this.items,
@@ -24,16 +22,16 @@ class DropdownCell<T> extends StatefulWidget {
   });
 
   @override
-  State<DropdownCell> createState() => _DropdownCellState<T>();
+  State<StateSelector> createState() => _StateSelectorState<T>();
 }
 
-class _DropdownCellState<T> extends State<DropdownCell<T>> {
+class _StateSelectorState<T> extends State<StateSelector<T>> {
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _dropDown;
 
   OverlayEntry stateDropDown() {
     return OverlayEntry(
-      builder: (context) => WKDropdown<T>(
+      builder: (context) => WKDropdown(
         onClose: hideDropDown,
         layerLink: _layerLink,
         // dataList: widget.items,

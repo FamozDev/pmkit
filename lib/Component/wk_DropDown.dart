@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
 
-class WKDropdown<T> extends StatelessWidget {
+class WKDropdown extends StatelessWidget {
   void Function() onClose;
   // Widget Function(T) itemConstructor;
   LayerLink layerLink;
   // List<T> dataList;
   List<Widget> options;
 
+  double width;
+
+  bool isDirectToBelow(BuildContext context) {
+    if (this.layerLink.leader != null) {
+      Offset offset = this.layerLink.leader!.offset;
+      MediaQueryData mediaQueryData = MediaQuery.of(context);
+
+      return offset.dy + 400 < mediaQueryData.size.height;
+    }
+    return true;
+  }
+
   WKDropdown(
       {super.key,
       required this.onClose,
       required this.layerLink,
       // required this.dataList,
-      required this.options});
+      required this.options,
+      this.width = 250});
 
   @override
   Widget build(BuildContext context) {
+    bool isBelow = isDirectToBelow(context);
+
     return Stack(
       children: [
         GestureDetector(
@@ -27,10 +42,12 @@ class WKDropdown<T> extends StatelessWidget {
           ),
         ),
         Positioned(
-          width: 250,
+          width: width,
           child: CompositedTransformFollower(
-            followerAnchor: Alignment.topCenter,
-            targetAnchor: Alignment.bottomCenter,
+            followerAnchor:
+                isBelow ? Alignment.topCenter : Alignment.bottomCenter,
+            targetAnchor:
+                isBelow ? Alignment.bottomCenter : Alignment.topCenter,
             link: layerLink,
             child: Material(
               child: Container(

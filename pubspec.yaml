@@ -31,6 +31,9 @@ dependencies:
   easy_sidemenu: ^0.5.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.18.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -39,6 +42,7 @@ dependencies:
   anydrawer: ^1.0.3
   flutter_quill: ^8.5.3
   provider: ^6.1.1
+  calendar_date_picker2: ^0.5.3
 
 dev_dependencies:
   flutter_test:
