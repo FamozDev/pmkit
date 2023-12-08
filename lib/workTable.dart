@@ -1,4 +1,5 @@
 import 'package:pmkit/Component/Wrapper.dart';
+import 'package:pmkit/Component/wk_DateRect.dart';
 import 'package:pmkit/DateSelector.dart';
 import 'package:pmkit/WorkCellTitle.dart';
 import 'package:pmkit/StateSelector.dart';
@@ -18,6 +19,7 @@ class WorkTable extends StatefulWidget {
 
 class _WorkTableState extends State<WorkTable> {
   int hoveredIndex = -1;
+  int editIndex = -1;
 
   @override
   void initState() {
@@ -45,6 +47,7 @@ class _WorkTableState extends State<WorkTable> {
       headingTextStyle: const TextStyle(
           fontSize: 12, color: Colors.black54, fontWeight: FontWeight.bold),
       headingRowHeight: 30,
+      dataRowHeight: 35,
       columns: const [
         DataColumn2(
             label: Text('업무명', textAlign: TextAlign.center), fixedWidth: 300),
@@ -69,7 +72,26 @@ class _WorkTableState extends State<WorkTable> {
                   (_) => setHoveredItem(_, index),
                   SizedBox.expand(
                     child: WorkCellTitle(
-                        work: w, onTab: (work) => {workModel.selectWork(work)}),
+                      work: w,
+                      isEditMode: this.editIndex == index,
+                      onTab: (work) => {workModel.selectWork(work)},
+                      onEditCancel: () {
+                        setState(() {
+                          editIndex = -1;
+                        });
+                      },
+                      onEditComplete: (work, title) {
+                        workModel.updateTitle(work, title);
+                        editIndex = -1;
+                      },
+                      onEditTitle: (work) => {
+                        setState(
+                          () {
+                            editIndex = index;
+                          },
+                        )
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -149,7 +171,7 @@ class _WorkTableState extends State<WorkTable> {
                     )),
               ),
               DataCell(HoverWrapped((_) => setHoveredItem(_, index),
-                  Text(w.createdAt.toString()))),
+                  DateRect(date: w.createdAt))),
               DataCell(HoverWrapped(
                   (_) => setHoveredItem(_, index), Text(w.number.toString())))
             ]);

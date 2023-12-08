@@ -40,7 +40,7 @@ class WorkPage extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: EdgeInsets.all(20),
               child: WorkTable(),
             ),
           ),

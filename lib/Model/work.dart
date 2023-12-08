@@ -72,6 +72,14 @@ class WorkModel extends ChangeNotifier {
     }
   }
 
+  void updateTitle(Work work, String title) {
+    var index = workList.indexOf(work);
+    if (index != -1) {
+      workList[index].name = title;
+      notifyListeners();
+    }
+  }
+
   void updateEndDate(Work work, DateTime end) {
     var index = workList.indexOf(work);
     if (index != -1) {

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:pmkit/Model/work.dart';
+import 'package:pmkit/feedUpdateEditor.dart';
 import 'package:provider/provider.dart';
 
 class WorkDetailPage extends StatelessWidget {
@@ -40,11 +41,12 @@ class WorkDetailPage extends StatelessWidget {
             ),
           ],
         ),
-        QuillProvider(
-            configurations: QuillConfigurations(controller: controller),
-            child: QuillEditor.basic(
-              configurations: const QuillEditorConfigurations(readOnly: true),
-            ))
+        FeedUpdateEditor(),
+        // QuillProvider(
+        //     configurations: QuillConfigurations(controller: controller),
+        //     child: QuillEditor.basic(
+        //       configurations: const QuillEditorConfigurations(readOnly: true),
+        //     ))
       ]),
     );
   }
